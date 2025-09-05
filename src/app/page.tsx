@@ -8,9 +8,14 @@ export default function Home() {
           className="dark:invert"
           src="/next.svg"
           alt="Next.js logo"
-          width={180}
-          height={38}
+          width={394}
+          height={80}
           priority
+          style={{
+            width: "50%",
+            height: "auto",
+            maxWidth: "197px",
+          }}
         />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
@@ -35,9 +40,13 @@ export default function Home() {
             <Image
               className="dark:invert"
               src="/vercel.svg"
-              alt="Vercel logomark"
+              alt="Vercel   logomark"
               width={20}
               height={20}
+              style={{
+                width: "16px",
+                height: "auto",
+              }}
             />
             Deploy now
           </a>
@@ -64,6 +73,10 @@ export default function Home() {
             alt="File icon"
             width={16}
             height={16}
+            style={{
+              width: "16px",
+              height: "auto",
+            }}
           />
           Learn
         </a>
@@ -79,6 +92,10 @@ export default function Home() {
             alt="Window icon"
             width={16}
             height={16}
+            style={{
+              width: "16px",
+              height: "auto",
+            }}
           />
           Examples
         </a>
@@ -94,6 +111,10 @@ export default function Home() {
             alt="Globe icon"
             width={16}
             height={16}
+            style={{
+              width: "16px",
+              height: "auto",
+            }}
           />
           Go to nextjs.org →
         </a>
