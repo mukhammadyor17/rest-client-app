@@ -30,7 +30,7 @@ export default function LoginPage() {
           setError("Ошибка: " + result.error);
         }
       } else if (result?.ok) {
-        router.push("/test-auth");
+        router.push("/");
         router.refresh();
       }
     } catch (error) {
