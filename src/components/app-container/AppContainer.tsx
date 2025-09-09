@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../app/api/auth/[...nextauth]/route";
 import Link from "next/link";
+import SignOutButton from "@/components/ui/SignOutButton.tsx";
 
 type AppContainerProps = {
   children: ReactNode;
@@ -50,14 +51,7 @@ const AppContainer = async ({ children }: AppContainerProps) => {
             </>
           ) : (
             <div className="flex gap-4 items-center">
-              <form action="/api/auth/signout" method="post">
-                <button
-                  type="submit"
-                  className="rounded-lg bg-red-500 px-4 py-2 text-white text-sm font-medium shadow-sm transition hover:bg-red-600 cursor-pointer"
-                >
-                  Sign Out
-                </button>
-              </form>
+              <SignOutButton />
             </div>
           )}
         </nav>
