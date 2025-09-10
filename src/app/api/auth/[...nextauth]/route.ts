@@ -23,7 +23,6 @@ const handler = NextAuth({
             role: "user",
           };
         }
-
         return null;
       },
     }),

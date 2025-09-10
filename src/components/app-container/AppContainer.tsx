@@ -1,16 +1,16 @@
-import React, { ReactNode } from "react";
 import Image from "next/image";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../app/api/auth/[...nextauth]/route";
 import Link from "next/link";
 import SignOutButton from "@/components/ui/SignOutButton.tsx";
-
-type AppContainerProps = {
-  children: ReactNode;
-};
+import SignInButton from "@/components/ui/SignInButton.tsx";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route.ts";
+import {
+  AppContainerProps,
+  DefaultSession,
+} from "../../types/app-container.ts";
 
 const AppContainer = async ({ children }: AppContainerProps) => {
-  const session = await getServerSession(authOptions);
+  const session: DefaultSession | null = await getServerSession(authOptions);
 
   return (
     <div className="w-screen min-h-screen font-sans bg-gray-50 text-gray-800 grid grid-rows-[auto_1fr_auto]">
@@ -35,19 +35,8 @@ const AppContainer = async ({ children }: AppContainerProps) => {
 
           {!session ? (
             <>
-              <Link
-                href="/api/auth/signin"
-                className="rounded-lg bg-indigo-600 px-4 py-2 text-white text-sm font-medium shadow-sm transition hover:bg-indigo-700"
-              >
-                Sign in
-              </Link>
-
-              <Link
-                href="/api/auth/signin"
-                className="rounded-lg bg-indigo-600 px-4 py-2 text-white text-sm font-medium shadow-sm transition hover:bg-indigo-700"
-              >
-                Sign up
-              </Link>
+              <SignInButton href={"/auth"} text="Sign in" />
+              <SignInButton href={"/auth"} text="Sign up" />
             </>
           ) : (
             <div className="flex gap-4 items-center">
@@ -56,7 +45,7 @@ const AppContainer = async ({ children }: AppContainerProps) => {
           )}
         </nav>
       </header>
-      <main className="w-full max-w-5xl mx-auto px-6 py-10">{children}</main>
+      {children}
       <footer className="w-full max-w-5xl mx-auto px-6 py-6 flex items-center justify-between border-t border-gray-200 text-sm text-gray-600">
         <a
           className="flex items-center gap-2 hover:text-indigo-600 transition"
