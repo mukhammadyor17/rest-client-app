@@ -2,17 +2,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MainProps } from "../../types/main.ts";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SignInButton from "@/components/ui/SignInButton.tsx";
 import SignOutButton from "@/components/ui/SignOutButton.tsx";
+import { setLocale } from "../../service/locale/locale-service.ts";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Header({ session }: MainProps) {
   const [bgColor, setBgColor] = useState("bg-white");
-  const [scrollTop, setScrollTop] = useState(0);
+  const [chosenLocale, chooseLocale] = useState(useLocale());
+  const signIn = useTranslations("SignInButton");
+
+  function changeLanguage(e: ChangeEvent<HTMLSelectElement>) {
+    chooseLocale(e.target.value);
+    setLocale(e.target.value).then(() => undefined);
+  }
 
   function onScroll() {
     const documentElement = document.documentElement;
-    setScrollTop(documentElement.scrollTop);
     if (documentElement.scrollTop !== 0) {
       setBgColor("bg-gray-200");
     } else {
@@ -23,7 +30,7 @@ export default function Header({ session }: MainProps) {
   useEffect(() => {
     document.addEventListener("scroll", onScroll);
     return () => document.removeEventListener("scroll", onScroll);
-  }, [scrollTop]);
+  }, []);
 
   return (
     <header
@@ -41,8 +48,9 @@ export default function Header({ session }: MainProps) {
       </Link>
       <nav className="flex items-center gap-6">
         <select
-          defaultValue="en"
+          defaultValue={chosenLocale}
           className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          onChange={changeLanguage}
         >
           <option value="en">En</option>
           <option value="ru">Ru</option>
@@ -50,8 +58,8 @@ export default function Header({ session }: MainProps) {
 
         {!session ? (
           <>
-            <SignInButton href={"/auth"} text="Sign in" />
-            <SignInButton href={"/auth"} text="Sign up" />
+            <SignInButton href={"/auth"} text={`${signIn("in")}`} />
+            <SignInButton href={"/auth"} text={`${signIn("up")}`} />
           </>
         ) : (
           <div className="flex gap-4 items-center">

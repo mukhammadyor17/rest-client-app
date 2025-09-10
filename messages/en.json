@@ -1,0 +1,16 @@
+{
+  "Main": {
+    "welcome": "Welcome",
+    "welcomeBack": "Welcome back",
+    "rest": "REST Client",
+    "variables": "Variables",
+    "history": "History"
+  },
+  "SignInButton": {
+    "in": "Sign In",
+    "up": "Sign Up"
+  },
+  "SignOutButton": {
+    "out": "Sign Out"
+  }
+}

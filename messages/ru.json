@@ -1,0 +1,16 @@
+{
+  "Main": {
+    "welcome": "Добро пожаловать",
+    "welcomeBack": "С возвращением",
+    "rest": "REST клиент",
+    "variables": "Переменные",
+    "history": "История запросов"
+  },
+  "SignInButton": {
+    "in": "Вход",
+    "up": "Регистрация"
+  },
+  "SignOutButton": {
+    "out": "Выйти"
+  }
+}
