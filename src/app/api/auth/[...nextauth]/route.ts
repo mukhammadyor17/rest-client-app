@@ -23,7 +23,6 @@ const handler = NextAuth({
             role: "user",
           };
         }
-
         return null;
       },
     }),
@@ -53,3 +52,5 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
+
+export const authOptions = handler.options || {};
