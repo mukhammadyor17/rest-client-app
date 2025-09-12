@@ -28,8 +28,8 @@ export default function Header({ session }: MainProps) {
   }
 
   useEffect(() => {
-    document.addEventListener("scroll", onScroll);
-    return () => document.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (

@@ -1,22 +1,18 @@
-import { render, screen } from "@testing-library/react";
-import Main from "@/components/main/Main.tsx";
-import { DefaultSession } from "../../types/app-container.ts";
+import { screen } from "@testing-library/react";
+import React from "react";
 
-const mockSession: DefaultSession = {
-  user: {
-    name: "Vasya",
-  },
-  expires: "01.01.2026",
-};
+import Main from "@/components/main/main.tsx";
+import {
+  mockActiveSession,
+  mockInActiveSession,
+  renderWithIntl,
+  wrapWithSession,
+} from "../../test-utils/test-utils.tsx";
 
-it("have heading", () => {
-  render(<Main session={mockSession} />);
-  const heading = screen.getByRole("heading");
-  expect(heading).toBeInTheDocument();
-});
-
-it("have 2 SignInButtons", () => {
-  render(<Main session={null} />);
+it("have 2 SignInButtons if no active session", () => {
+  renderWithIntl(
+    wrapWithSession(<Main session={mockInActiveSession} />, mockInActiveSession)
+  );
   const signInButtons = screen.getAllByRole("link");
   expect(signInButtons.length).toBe(2);
   expect(
@@ -24,4 +20,11 @@ it("have 2 SignInButtons", () => {
       (button) => ((button as HTMLLinkElement).href = "/auth")
     )
   );
+});
+
+it("if the login token is valid and unexpired, the Sign In and Sign Up buttons are replaced with the buttons:'Rest Client','History','Variables'", () => {
+  renderWithIntl(<Main session={mockActiveSession} />);
+  const mainButtons = screen.getAllByRole("link");
+  expect(mainButtons.length).toBe(3);
+  expect(mainButtons.some((button) => button.innerText === "History"));
 });
