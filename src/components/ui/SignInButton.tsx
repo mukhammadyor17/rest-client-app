@@ -6,9 +6,9 @@ export default function SignInButton({ href, text }: LinkProps) {
   return (
     <Link
       href={href}
-      className="rounded-lg bg-indigo-600 px-4 py-2 text-white text-sm font-medium shadow-sm transition hover:bg-indigo-700"
+      className="flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-white text-sm font-medium shadow-sm transition hover:bg-indigo-700"
     >
-      {text}
+      <span className="block w-[114px] text-center">{text}</span>
     </Link>
   );
 }

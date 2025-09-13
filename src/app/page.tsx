@@ -1,14 +1,14 @@
-import Main from "@/components/main/Main.tsx";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route.ts";
-import AppContainer from "@/components/app-container/AppContainer.tsx";
 import { DefaultSession } from "../types/app-container.ts";
+import AppContainer from "@/components/app-container/appContainer.tsx";
+import Main from "@/components/main/main.tsx";
 
 export default async function Home() {
   const session: DefaultSession | null = await getServerSession(authOptions);
   return (
     <AppContainer>
-      <Main session={session}></Main>
+      <Main session={session} />
     </AppContainer>
   );
 }

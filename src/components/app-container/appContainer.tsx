@@ -4,8 +4,8 @@ import {
   AppContainerProps,
   DefaultSession,
 } from "../../types/app-container.ts";
-import Footer from "@/components/ui/Footer.tsx";
 import Header from "@/components/ui/Header.tsx";
+import Footer from "@/components/ui/Footer.tsx";
 
 const AppContainer = async ({ children }: AppContainerProps) => {
   const session: DefaultSession | null = await getServerSession(authOptions);
