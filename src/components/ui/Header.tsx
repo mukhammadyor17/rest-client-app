@@ -38,7 +38,7 @@ export default function Header({ session }: MainProps) {
     >
       <Link href="/">
         <Image
-          src="logo.svg"
+          src="/Logo.svg"
           alt="app icon"
           width={80}
           height={80}
@@ -49,9 +49,10 @@ export default function Header({ session }: MainProps) {
       <nav className="flex items-center gap-6">
         <select
           defaultValue={chosenLocale}
-          className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="rounded-lg border border-gray-300 px-2 py-1 text-sm hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 "
           onChange={changeLanguage}
         >
+          bg-indigo-60
           <option value="en">En</option>
           <option value="ru">Ru</option>
         </select>

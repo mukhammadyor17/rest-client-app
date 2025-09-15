@@ -12,5 +12,28 @@
   },
   "SignOutButton": {
     "out": "Выйти"
+  },
+  "RestClient": {
+    "title": "REST клиент",
+    "urlPlaceholder": "Введите URL",
+    "omitted": "Парсинг URL пропущен",
+    "emptyUrl": "URL не может быть пустым",
+    "invalidJson": "Невалидный JSON",
+    "bodyError": "Ошибка в Body",
+    "responseError": "Ошибка ответа",
+    "send": "Отправить",
+    "loading": "Загрузка..",
+    "bodyPlaceholder": "JSON/текстовый редактор",
+    "prettify": "Форматировать",
+    "responsePlaceholder": "Тело ответа (только для чтения)",
+    "headersPlaceholder": "Заголовки запроса (JSON)",
+    "invalidHeaders": "Невалидный JSON в заголовках",
+    "clear": "Очистить",
+    "body": "Тело запроса",
+    "response": "Ответ"
+  },
+  "Modal": {
+    "title": "Ошибка",
+    "close": "Закрыть"
   }
 }
