@@ -15,6 +15,7 @@ import {
 } from "../../utils/rest-client-utils";
 import ErrorModal from "@/components/ui/ErrorModal.tsx";
 import Body from "@/components/rest-client/Body.tsx";
+import HeadersTable from "@/components/rest-client/HeadersTable.tsx";
 
 export default function RestClientForm() {
   const rest = useTranslations("RestClient");
@@ -22,7 +23,7 @@ export default function RestClientForm() {
 
   const [url, setUrl] = useState("");
   const [method, setMethod] = useState<HttpMethod>("GET");
-  const [headers, setHeaders] = useState<string>("");
+  const [headers, setHeaders] = useState<{ key: string; value: string }[]>([]);
   const [body, setBody] = useState<string>("");
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +37,11 @@ export default function RestClientForm() {
       if (parsed.method) setMethod(parsed.method as HttpMethod);
       if (parsed.body) setBody(parsed.body);
       if (parsed.headers && Object.keys(parsed.headers).length > 0) {
-        setHeaders(JSON.stringify(parsed.headers, null, 2));
+        const headersArray = Object.entries(parsed.headers).map(([k, v]) => ({
+          key: k,
+          value: String(v),
+        }));
+        setHeaders(headersArray);
       }
     } catch (e) {
       setError(new Error(`${rest("omitted")}: ${(e as Error).message}`));
@@ -65,13 +70,10 @@ export default function RestClientForm() {
     setLoading(true);
 
     try {
-      let parsedHeaders: HeadersType = {};
-      if (headers) {
-        try {
-          parsedHeaders = JSON.parse(headers);
-        } catch {
-          setError(new Error(rest("invalidHeaders")));
-          return;
+      const parsedHeaders: HeadersType = {};
+      for (const h of headers) {
+        if (h.key.trim()) {
+          parsedHeaders[h.key.trim()] = h.value;
         }
       }
 
@@ -166,13 +168,7 @@ export default function RestClientForm() {
           </button>
         </div>
 
-        <textarea
-          placeholder={rest("headersPlaceholder")}
-          value={headers}
-          onChange={(e) => setHeaders(e.target.value)}
-          rows={3}
-          className="w-full border px-2 py-1 font-mono text-sm"
-        />
+        <HeadersTable headers={headers} onChange={setHeaders} />
 
         {method !== "GET" && (
           <div className="flex flex-col gap-2.5">

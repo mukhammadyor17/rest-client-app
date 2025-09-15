@@ -30,7 +30,11 @@
     "emptyUrl": "URL cannot be empty",
     "clear": "Clear",
     "body": "Body",
-    "response": "Response"
+    "response": "Response",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "addHeader": "Add Header",
+    "headers": "Headers"
   },
   "Modal": {
     "title": "Error",

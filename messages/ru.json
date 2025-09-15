@@ -30,7 +30,11 @@
     "invalidHeaders": "Невалидный JSON в заголовках",
     "clear": "Очистить",
     "body": "Тело запроса",
-    "response": "Ответ"
+    "response": "Ответ",
+    "headerKey": "Ключ",
+    "headerValue": "Значение",
+    "addHeader": "Добавить заголовок",
+    "headers": "Заголовки запроса"
   },
   "Modal": {
     "title": "Ошибка",
