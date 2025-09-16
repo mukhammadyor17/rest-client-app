@@ -31,7 +31,7 @@ const Body = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative flex-col w-full max-w-full">
       <h2>{type === "request" ? rest("body") : rest("response")}</h2>
       <textarea
         readOnly={type === "response"}

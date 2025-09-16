@@ -12,7 +12,7 @@ const AppContainer = async ({ children }: AppContainerProps) => {
   const session: DefaultSession | null = await getServerSession(authOptions);
 
   return (
-    <div className="w-screen min-h-screen font-sans bg-gray-50 text-gray-800 grid grid-rows-[auto_1fr_auto]">
+    <div className="absolute top-0 left-0 right-0 min-h-screen font-sans bg-gray-50 text-gray-800 grid grid-rows-[auto_1fr_auto]">
       <Header session={session} />
       <ClientErrorBoundary>{children}</ClientErrorBoundary>
       <Footer />

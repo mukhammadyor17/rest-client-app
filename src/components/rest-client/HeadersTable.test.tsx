@@ -176,7 +176,6 @@ describe("HeadersTable", () => {
       </TestProvider>
     );
 
-    // Удаляем среднюю строку
     const removeButtons = screen.getAllByText("✕");
     fireEvent.click(removeButtons[1]);
 
