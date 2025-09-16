@@ -5,7 +5,19 @@ const nextConfig = {
   experimental: {
     optimizeCss: false,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "/api/:path*",
+      },
+      {
+        source: "/:method/:url/:body*",
+        destination: "/rest-client",
+      },
+    ];
+  },
 };
 const withNextIntl = createNextIntlPlugin();
-// export default nextConfig;
+
 export default withNextIntl(nextConfig);

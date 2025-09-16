@@ -12,5 +12,32 @@
   },
   "SignOutButton": {
     "out": "Sign Out"
+  },
+  "RestClient": {
+    "title": "REST Client",
+    "urlPlaceholder": "Enter URL",
+    "omitted": "URL parsing omitted",
+    "invalidJson": "Invalid JSON",
+    "bodyError": "Body error",
+    "responseError": "Response error",
+    "send": "Send",
+    "loading": "Loading...",
+    "bodyPlaceholder": "JSON/Text Editor",
+    "responsePlaceholder": "Read-Only Viewer",
+    "prettify": "Prettify",
+    "headersPlaceholder": "Add headers in JSON",
+    "invalidHeaders": "Invalid JSON in headers",
+    "emptyUrl": "URL cannot be empty",
+    "clear": "Clear",
+    "body": "Body",
+    "response": "Response",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "addHeader": "Add Header",
+    "headers": "Headers"
+  },
+  "Modal": {
+    "title": "Error",
+    "close": "Close"
   }
 }

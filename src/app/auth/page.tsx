@@ -1,6 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -81,7 +81,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-indigo-600 py-2 text-white transition hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed"
+            className="w-full rounded-lg bg-indigo-600 py-2 text-white transition hover:bg-indigo-700 hover:cursor-pointer disabled:bg-indigo-400 disabled:cursor-not-allowed active:scale-99"
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
