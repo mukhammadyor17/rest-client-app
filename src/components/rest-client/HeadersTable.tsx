@@ -31,8 +31,8 @@ export default function HeadersTable({ headers, onChange }: HeadersTableProps) {
 
   return (
     <div className="space-y-2 flex-col ">
-      <div className="flex justify-between p-0.5 ">
-        <h2 className="text-lg font-medium">{rest("headers")}</h2>
+      <div className="flex justify-between  p-0.5 max-sm:flex-col">
+        <h2 className="text-lg font-medium text-center">{rest("headers")}</h2>
         <button
           type="button"
           onClick={handleAddRow}

@@ -14,7 +14,7 @@ export default async function RestClient() {
 
   return (
     <AppContainer>
-      <div className="p-4">
+      <div className="w-full">
         <LazyRestClientForm />
       </div>
     </AppContainer>

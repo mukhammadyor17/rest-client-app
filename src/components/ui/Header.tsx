@@ -20,6 +20,7 @@ export default function Header({ session }: MainProps) {
 
   function onScroll() {
     const documentElement = document.documentElement;
+
     if (documentElement.scrollTop !== 0) {
       setBgColor("bg-gray-200");
     } else {
@@ -34,15 +35,15 @@ export default function Header({ session }: MainProps) {
 
   return (
     <header
-      className={`${bgColor} sticky top-0 flex w-full max-w-5xl mx-auto px-6 py-4 items-center justify-between shadow-sm rounded-b-2xl`}
+      className={`${bgColor} border-b border-gray-200 sticky top-0 z-[2] flex w-full max-w-5xl mx-auto px-6 py-4 items-center justify-between  h-[65px] max-lg:h-[56px]`}
     >
       <Link href="/">
         <Image
           src="/Logo.svg"
           alt="app icon"
-          width={80}
-          height={80}
-          className="rounded-4xl"
+          width={55}
+          height={55}
+          className="rounded"
           priority
         ></Image>
       </Link>
