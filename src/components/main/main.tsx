@@ -22,7 +22,7 @@ const Main = ({ session }: MainProps) => {
                 {`${main("rest")}`}
               </Link>
               <Link
-                href="/rest-client"
+                href="/history"
                 className="text-indigo-600 whitespace-nowrap max-md:text-[14px] hover:text-indigo-800 transition font-medium active:scale-95"
               >
                 {`${main("history")}`}

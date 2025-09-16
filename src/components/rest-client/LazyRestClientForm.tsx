@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const RestClientForm = dynamic(() => import("./RestClientForm"), {
@@ -9,9 +8,5 @@ const RestClientForm = dynamic(() => import("./RestClientForm"), {
 });
 
 export default function LazyRestClientForm() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <RestClientForm />
-    </Suspense>
-  );
+  return <RestClientForm />;
 }
