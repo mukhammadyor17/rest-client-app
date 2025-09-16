@@ -16,6 +16,7 @@ import {
 import ErrorModal from "@/components/ui/ErrorModal.tsx";
 import Body from "@/components/rest-client/Body.tsx";
 import HeadersTable from "@/components/rest-client/HeadersTable.tsx";
+import CodeGenerator from "@/components/rest-client/CodeGenerator.tsx";
 
 export default function RestClientForm() {
   const rest = useTranslations("RestClient");
@@ -29,6 +30,7 @@ export default function RestClientForm() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [error, setError] = useState<Error | null>(null);
+  const [showCodeGen, setShowCodeGen] = useState(false);
 
   useEffect(() => {
     try {
@@ -68,6 +70,7 @@ export default function RestClientForm() {
     setResponse("");
     setStatus("");
     setLoading(true);
+    setShowCodeGen(false);
 
     try {
       const parsedHeaders: HeadersType = {};
@@ -111,6 +114,7 @@ export default function RestClientForm() {
 
       setStatus(String((data as CustomResponseBody).status));
       setResponse(JSON.stringify(data as CustomResponseBody));
+      setShowCodeGen(true);
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -131,7 +135,7 @@ export default function RestClientForm() {
   }
 
   return (
-    <div className="p-4 max-w-4xl mx-auto space-y-4">
+    <div className="p-4 max-w-4xl mx-auto space-y-4 w-full flex flex-col">
       <h1 className="text-2xl font-bold text-center">{rest("title")}</h1>
 
       <form
@@ -191,6 +195,20 @@ export default function RestClientForm() {
           onchange={editResponse}
           status={status}
           handlePrettify={handlePrettify}
+        />
+      )}
+
+      {showCodeGen && (
+        <CodeGenerator
+          url={url}
+          method={method}
+          headers={headers.reduce<Record<string, string>>((acc, h) => {
+            if (h.key.trim()) {
+              acc[h.key.trim()] = h.value;
+            }
+            return acc;
+          }, {})}
+          body={body}
         />
       )}
 

@@ -39,5 +39,8 @@
   "Modal": {
     "title": "Error",
     "close": "Close"
+  },
+  "Code": {
+    "copy": "Copy"
   }
 }
