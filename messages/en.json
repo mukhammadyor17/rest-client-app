@@ -42,5 +42,13 @@
   },
   "Code": {
     "copy": "Copy"
+  },
+  "Variables": {
+    "title": "Variables",
+    "name": "Name",
+    "value": "Value",
+    "namePlaceholder": "Variable name",
+    "valuePlaceholder": "Variable value",
+    "empty": "Variables are empty"
   }
 }

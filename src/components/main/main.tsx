@@ -28,7 +28,7 @@ const Main = ({ session }: MainProps) => {
                 {`${main("history")}`}
               </Link>
               <Link
-                href="/rest-client"
+                href="/variables"
                 className="text-indigo-600 whitespace-nowrap  hover:text-indigo-800 transition font-medium active:scale-95"
               >
                 {`${main("variables")}`}
