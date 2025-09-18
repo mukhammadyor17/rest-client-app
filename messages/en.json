@@ -45,5 +45,27 @@
   },
   "History": {
     "history": "History"
+  },
+
+  "Auth": {
+    "login": "Login",
+    "register": "Registration",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "emailError": "Please enter a valid email",
+    "passwordEmptyError": "Please enter password",
+    "passwordComplexityError": "Password must contain at least 8 characters, at least one letter, one number and one special character",
+    "loading": "Loading...",
+    "registerButton": "Register",
+    "loginButton": "Login",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "switchToLogin": "Login",
+    "switchToRegister": "Register",
+    "showPassword": "show",
+    "hidePassword": "hide",
+    "invalidCredentials": "Invalid email or password",
+    "unknownError": "An error occurred. Please try again.",
+    "registrationFailed": "Registration failed"
   }
 }

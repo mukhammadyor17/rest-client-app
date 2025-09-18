@@ -1,7 +1,14 @@
-import NextAuth from "next-auth";
+import NextAuth, { User as NextAuthUser, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { SupabaseClient } from "@supabase/supabase-js";
+import bcrypt from "bcryptjs";
+import { NextAuthOptions } from "next-auth/src";
+import { supabaseServerClient } from "../../../../lib/supabaseServerClient.ts";
+import { MyToken } from "next-auth/jwt";
 
-const handler = NextAuth({
+const supabase: SupabaseClient = supabaseServerClient;
+
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -9,21 +16,33 @@ const handler = NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        console.log("Authorize called with:", credentials);
+      async authorize(credentials): Promise<NextAuthUser | null> {
+        if (!credentials?.email || !credentials?.password) return null;
 
-        if (
-          credentials?.email === "user@example.com" &&
-          credentials?.password === "123456"
-        ) {
-          return {
-            id: "1",
-            name: "John Doe",
-            email: "user@example.com",
-            role: "user",
-          };
+        const { data: user, error } = await supabase
+          .from("users")
+          .select("id, email, password_hash")
+          .eq("email", credentials.email)
+          .single();
+
+        if (error || !user) {
+          console.error("User not found:", error?.message);
+          return null;
         }
-        return null;
+
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password_hash
+        );
+        if (!isValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          role: "user",
+        } as NextAuthUser & { role: string };
       },
     }),
   ],
@@ -37,20 +56,28 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
+        token.id = user.id;
+        token.email = user.email;
+        token.role = (user as NextAuthUser & { role: string }).role;
       }
       return token;
     },
+
     async session({ session, token }) {
-      if (token?.role) {
-        session.user.role = token.role;
-      }
-      return session;
+      const t = token as unknown as MyToken;
+      const s = session as unknown as Session;
+
+      s.user = {
+        id: t.id,
+        email: t.email,
+        role: t.role,
+      };
+      return s as Session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-
-export const authOptions = handler.options || {};

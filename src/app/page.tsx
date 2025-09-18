@@ -6,6 +6,7 @@ import Main from "@/components/main/main.tsx";
 
 export default async function Home() {
   const session: DefaultSession | null = await getServerSession(authOptions);
+
   return (
     <AppContainer>
       <Main session={session} />

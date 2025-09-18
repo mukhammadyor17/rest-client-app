@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { LinkProps } from "../../types/app-container.ts";
 

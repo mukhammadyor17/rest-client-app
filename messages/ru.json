@@ -45,5 +45,26 @@
   },
   "History": {
     "history": "История запросов"
+  },
+  "Auth": {
+    "login": "Вход",
+    "register": "Регистрация",
+    "emailLabel": "Email",
+    "passwordLabel": "Пароль",
+    "emailError": "Введите корректный email",
+    "passwordEmptyError": "Введите пароль",
+    "passwordComplexityError": "Пароль должен содержать минимум 8 символов, хотя бы одну букву, одну цифру и один спецсимвол",
+    "loading": "Загрузка...",
+    "registerButton": "Зарегистрироваться",
+    "loginButton": "Войти",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "noAccount": "Нет аккаунта?",
+    "switchToLogin": "Войти",
+    "switchToRegister": "Зарегистрироваться",
+    "showPassword": "show",
+    "hidePassword": "hide",
+    "invalidCredentials": "Неверный email или пароль",
+    "unknownError": "Произошла ошибка. Попробуйте снова.",
+    "registrationFailed": "Ошибка регистрации"
   }
 }
