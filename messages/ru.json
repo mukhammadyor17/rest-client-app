@@ -66,5 +66,13 @@
     "invalidCredentials": "Неверный email или пароль",
     "unknownError": "Произошла ошибка. Попробуйте снова.",
     "registrationFailed": "Ошибка регистрации"
+  },
+  "Variables": {
+    "title": "Переменные",
+    "name": "Название",
+    "value": "Значение",
+    "namePlaceholder": "Название переменной",
+    "valuePlaceholder": "Значение переменной",
+    "empty": "Пока нету переменных"
   }
 }
