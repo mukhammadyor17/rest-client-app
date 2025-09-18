@@ -1,12 +1,9 @@
 import NextAuth, { User as NextAuthUser, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { SupabaseClient } from "@supabase/supabase-js";
 import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth/src";
 import { supabaseServerClient } from "../../../../lib/supabaseServerClient.ts";
 import { MyToken } from "next-auth/jwt";
-
-const supabase: SupabaseClient = supabaseServerClient;
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,7 +16,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials): Promise<NextAuthUser | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const { data: user, error } = await supabase
+        const { data: user, error } = await supabaseServerClient
           .from("users")
           .select("id, email, password_hash")
           .eq("email", credentials.email)

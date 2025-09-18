@@ -37,6 +37,54 @@ export type Database = {
   };
   public: {
     Tables: {
+      request_history: {
+        Row: {
+          body: string | null;
+          created_at: string | null;
+          error: string | null;
+          headers: Json | null;
+          id: number;
+          latency_ms: number | null;
+          method: string;
+          request_size: number | null;
+          response: string | null;
+          response_size: number | null;
+          status_code: number | null;
+          url: string;
+          user_id: string | null;
+        };
+        Insert: {
+          body?: string | null;
+          created_at?: string | null;
+          error?: string | null;
+          headers?: Json | null;
+          id?: number;
+          latency_ms?: number | null;
+          method: string;
+          request_size?: number | null;
+          response?: string | null;
+          response_size?: number | null;
+          status_code?: number | null;
+          url: string;
+          user_id?: string | null;
+        };
+        Update: {
+          body?: string | null;
+          created_at?: string | null;
+          error?: string | null;
+          headers?: Json | null;
+          id?: number;
+          latency_ms?: number | null;
+          method?: string;
+          request_size?: number | null;
+          response?: string | null;
+          response_size?: number | null;
+          status_code?: number | null;
+          url?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           created_at: string;
