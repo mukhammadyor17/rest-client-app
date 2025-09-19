@@ -74,5 +74,18 @@
     "namePlaceholder": "Название переменной",
     "valuePlaceholder": "Значение переменной",
     "empty": "Пока нету переменных"
+  },
+  "Table": {
+    "method": "Метод",
+    "url": "URL",
+    "status": "Статус",
+    "created": "Создано",
+    "latency": "Задержка",
+    "request_size": "Размер запроса",
+    "response_size": "Размер ответа",
+    "error": "Ошибка",
+    "bytes": "байт",
+    "ms": "мс",
+    "none": "-"
   }
 }

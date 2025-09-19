@@ -42,7 +42,6 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (insertErr) {
-      console.error("Insert error:", insertErr);
       return NextResponse.json({ error: "internal" }, { status: 500 });
     }
 
@@ -51,7 +50,8 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (err) {
-    console.error("Register route error:", err);
-    return NextResponse.json({ error: "server error" }, { status: 500 });
+    if (err instanceof Error) {
+      return NextResponse.json({ error: "server error" }, { status: 500 });
+    }
   }
 }

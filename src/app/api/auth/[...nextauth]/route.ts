@@ -23,7 +23,6 @@ export const authOptions: NextAuthOptions = {
           .single();
 
         if (error || !user) {
-          console.error("User not found:", error?.message);
           return null;
         }
 

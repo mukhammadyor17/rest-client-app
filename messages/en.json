@@ -75,5 +75,18 @@
     "namePlaceholder": "Variable name",
     "valuePlaceholder": "Variable value",
     "empty": "Variables are empty"
+  },
+  "Table": {
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "created": "Created",
+    "latency": "Latency",
+    "request_size": "Request Size",
+    "response_size": "Response Size",
+    "error": "Error",
+    "bytes": "bytes",
+    "ms": "ms",
+    "none": "-"
   }
 }
