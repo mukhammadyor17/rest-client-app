@@ -1,5 +1,5 @@
-import { DefaultSession } from "./app-container.ts";
+import { Session } from "next-auth";
 
 export type MainProps = {
-  session: DefaultSession | null;
+  session: Session | null;
 };

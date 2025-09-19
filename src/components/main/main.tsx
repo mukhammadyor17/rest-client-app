@@ -13,7 +13,7 @@ const Main = ({ session }: MainProps) => {
       <main className=" w-full h- max-w-5xl mx-auto   px-6 py-10 bg-gray-50 text-gray-800 flex flex-col items-center gap-6">
         {session ? (
           <>
-            <h1 className="text-2xl text-center font-bold">{`${main("welcomeBack")}, ${session.user?.name}!`}</h1>
+            <h1 className="text-2xl text-center font-bold">{`${main("welcomeBack")}, ${session.user?.name ? session.user?.name : session.user?.email}`}</h1>
             <div className="flex gap-6 max-md:gap-2 ">
               <Link
                 href="/rest-client"
@@ -22,7 +22,7 @@ const Main = ({ session }: MainProps) => {
                 {`${main("rest")}`}
               </Link>
               <Link
-                href="/rest-client"
+                href="/history"
                 className="text-indigo-600 whitespace-nowrap max-md:text-[14px] hover:text-indigo-800 transition font-medium active:scale-95"
               >
                 {`${main("history")}`}
