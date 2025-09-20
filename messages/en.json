@@ -4,7 +4,8 @@
     "welcomeBack": "Welcome back",
     "rest": "REST Client",
     "variables": "Variables",
-    "history": "History"
+    "history": "History",
+    "mainButton": "Main"
   },
   "SignInButton": {
     "in": "Sign In",
@@ -44,7 +45,8 @@
     "copy": "Copy"
   },
   "History": {
-    "history": "History"
+    "history": "History",
+    "unAuth": "Session expired, please log in again"
   },
 
   "Auth": {
@@ -88,5 +90,17 @@
     "bytes": "bytes",
     "ms": "ms",
     "none": "-"
+  },
+
+  "EmptyHistory": {
+    "title": "It's empty here.",
+    "description": "You haven't executed any requests yet",
+    "tryOptions": "Try those options:",
+    "restClientLink": "REST Client"
+  },
+  "NotFound": {
+    "title": "404. Page not found.",
+    "returnLabel": "Return to home page",
+    "mainPageLink": "Main page"
   }
 }

@@ -4,12 +4,13 @@ import { NextIntlClientProvider } from "next-intl";
 import { MainProps } from "../types/main.ts";
 import { SessionProvider } from "next-auth/react";
 import * as enMessage from "../../messages/en.json";
-import { DefaultSession } from "../types/app-container.ts";
+import { Session } from "next-auth";
 
 export const mockMessages = enMessage;
 
-export const mockActiveSession: DefaultSession = {
+export const mockActiveSession: Session = {
   user: {
+    id: "kddjkvhx",
     name: "Vasya",
   },
   expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
