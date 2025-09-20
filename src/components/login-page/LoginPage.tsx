@@ -123,10 +123,14 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} noValidate className="space-y-7">
           <div className="relative">
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               {auth("emailLabel")}
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -141,10 +145,14 @@ export default function LoginPage() {
 
           <div className="relative">
             <div className="relative">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 {auth("passwordLabel")}
               </label>
               <input
+                id="password"
                 type={!showPassword ? "password" : "text"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

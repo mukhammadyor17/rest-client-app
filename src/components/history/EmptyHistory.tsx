@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl"; // Или ваша библиотека переводов
+import { useTranslations } from "next-intl";
 
 const EmptyHistory = () => {
   const t = useTranslations("EmptyHistory");
