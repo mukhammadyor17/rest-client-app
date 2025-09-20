@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { type Variable } from "types/variables";
 import useLocalStorage from "hooks/useLocalStorage";
 
 const VariablesContainer = () => {
@@ -11,6 +12,16 @@ const VariablesContainer = () => {
 
   const handleAdd = () => {
     if (!newName.trim() || !newValue.trim()) return;
+
+    const duplicate = items.some(
+      (item: Variable) =>
+        item.name.toLowerCase() === newName.trim().toLowerCase()
+    );
+
+    if (duplicate) {
+      return;
+    }
+
     const updated = [
       ...items,
       { name: newName.trim(), value: newValue.trim() },
@@ -21,7 +32,7 @@ const VariablesContainer = () => {
   };
 
   const handleRemove = (name: string) => {
-    const updated = items.filter((item: any) => item.name !== name);
+    const updated = items.filter((item: Variable) => item.name !== name);
     setItems(updated);
   };
 
@@ -54,6 +65,12 @@ const VariablesContainer = () => {
           &#43;
         </button>
       </div>
+      <div className="text-red-500 text-sm">
+        {items.some(
+          (item: Variable) =>
+            item.name.toLowerCase() === newName.trim().toLowerCase()
+        ) && variables("duplicateError")}
+      </div>
 
       <div className="flex flex-col border border-gray-300">
         <div className="flex justify-between bg-gray-200 font-semibold">
@@ -63,7 +80,7 @@ const VariablesContainer = () => {
           </div>
           <div className="w-10 border-l border-gray-300 pl-4 py-1"></div>
         </div>
-        {items.map((item: any) => (
+        {items.map((item: Variable) => (
           <div
             className="flex justify-between border-t border-gray-300"
             key={item.name}
