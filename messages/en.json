@@ -74,7 +74,8 @@
     "value": "Value",
     "namePlaceholder": "Variable name",
     "valuePlaceholder": "Variable value",
-    "empty": "Variables are empty"
+    "empty": "Variables are empty",
+    "duplicateError": "Already exists"
   },
   "Table": {
     "method": "Method",
