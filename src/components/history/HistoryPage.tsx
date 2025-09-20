@@ -1,10 +1,11 @@
+import React from "react";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import AppContainer from "@/components/app-container/appContainer.tsx";
-import LazyRestClientForm from "@/components/rest-client/LazyRestClientForm.tsx";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route.ts";
+import LazyHistory from "@/components/history/LazyHistory.tsx";
 
-export default async function RestClient() {
+const HistoryPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -13,9 +14,9 @@ export default async function RestClient() {
 
   return (
     <AppContainer>
-      <div className="w-full">
-        <LazyRestClientForm />
-      </div>
+      <LazyHistory />
     </AppContainer>
   );
-}
+};
+
+export default HistoryPage;

@@ -43,6 +43,31 @@
   "Code": {
     "copy": "Copy"
   },
+  "History": {
+    "history": "History"
+  },
+
+  "Auth": {
+    "login": "Login",
+    "register": "Registration",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "emailError": "Please enter a valid email",
+    "passwordEmptyError": "Please enter password",
+    "passwordComplexityError": "Password must contain at least 8 characters, at least one letter, one number and one special character",
+    "loading": "Loading...",
+    "registerButton": "Register",
+    "loginButton": "Login",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "switchToLogin": "Login",
+    "switchToRegister": "Register",
+    "showPassword": "show",
+    "hidePassword": "hide",
+    "invalidCredentials": "Invalid email or password",
+    "unknownError": "An error occurred. Please try again.",
+    "registrationFailed": "Registration failed"
+  },
   "Variables": {
     "title": "Variables",
     "name": "Name",
@@ -51,5 +76,18 @@
     "valuePlaceholder": "Variable value",
     "empty": "Variables are empty",
     "duplicateError": "Already exists"
+  },
+  "Table": {
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "created": "Created",
+    "latency": "Latency",
+    "request_size": "Request Size",
+    "response_size": "Response Size",
+    "error": "Error",
+    "bytes": "bytes",
+    "ms": "ms",
+    "none": "-"
   }
 }
