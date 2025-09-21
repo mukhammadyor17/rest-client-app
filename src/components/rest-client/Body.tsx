@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ChangeEvent } from "react";
 import { useTranslations } from "next-intl";
 import { BodyProps } from "../../types/rest-client.ts";
