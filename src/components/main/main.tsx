@@ -4,13 +4,13 @@ import { MainProps } from "../../types/main.ts";
 import SignInButton from "@/components/ui/SignInButton.tsx";
 import { useTranslations } from "next-intl";
 
-const Main = ({ session }: MainProps) => {
+const Main = ({ session }: Pick<MainProps, "session">) => {
   const main = useTranslations("Main");
   const signIn = useTranslations("SignInButton");
 
   {
     return (
-      <main className=" w-full h- max-w-5xl mx-auto   px-6 py-10 bg-gray-50 text-gray-800 flex flex-col items-center gap-6">
+      <main className="flex-1 w-full h- max-w-5xl mx-auto h-[2000px]  px-6 py-10 bg-gray-50 text-gray-800 flex flex-col items-center gap-6">
         {session ? (
           <>
             <h1 className="text-2xl text-center font-bold">{`${main("welcomeBack")}, ${session.user?.name ? session.user?.name : session.user?.email}`}</h1>

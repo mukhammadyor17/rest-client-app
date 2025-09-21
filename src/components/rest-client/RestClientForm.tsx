@@ -32,6 +32,14 @@ export default function RestClientForm() {
   const [status, setStatus] = useState<string>("");
   const [error, setError] = useState<Error | null>(null);
   const [showCodeGen, setShowCodeGen] = useState(false);
+  const methods: HttpMethod[] = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "PATCH",
+    "HEAD",
+  ];
 
   useEffect(() => {
     try {
@@ -138,7 +146,6 @@ export default function RestClientForm() {
   return (
     <div className="p-4 max-w-4xl mx-auto space-y-4 w-full flex flex-col">
       <h1 className="text-2xl font-bold text-center">{rest("title")}</h1>
-
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -152,10 +159,11 @@ export default function RestClientForm() {
             onChange={(e) => setMethod(e.target.value as HttpMethod)}
             className="border px-2 py-1 hover:cursor-pointer"
           >
-            <option>GET</option>
-            <option>POST</option>
-            <option>PUT</option>
-            <option>DELETE</option>
+            <>
+              {methods.map((method) => (
+                <option key={method}>{method}</option>
+              ))}
+            </>
           </select>
           <input
             type="search"

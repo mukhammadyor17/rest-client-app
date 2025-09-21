@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ErrorModal from "@/components/ui/ErrorModal.tsx";
 import { useTranslations } from "next-intl";
@@ -21,6 +21,15 @@ export default function LoginPage() {
 
   const modal = useTranslations("Modal");
   const auth = useTranslations("Auth");
+  const sign = useTranslations("SignInButton");
+
+  useEffect(() => {
+    const signValue = localStorage.getItem("Sign");
+    if (signValue) {
+      setIsRegister(signValue === "Sign Up" || signValue === "Регистрация");
+    }
+    return () => localStorage.removeItem("Sign");
+  }, []);
 
   function clearFormErrors() {
     setEmailError("");
@@ -95,9 +104,9 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-md">
+      <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-md mt-[-150px]">
         <h1 className="mb-6 text-center text-2xl font-bold">
-          {isRegister ? auth("register") : auth("login")}
+          {isRegister ? sign("up") : sign("in")}
         </h1>
 
         {error && (
@@ -114,10 +123,14 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} noValidate className="space-y-7">
           <div className="relative">
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               {auth("emailLabel")}
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -132,10 +145,14 @@ export default function LoginPage() {
 
           <div className="relative">
             <div className="relative">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 {auth("passwordLabel")}
               </label>
               <input
+                id="password"
                 type={!showPassword ? "password" : "text"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -160,11 +177,7 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full rounded-lg bg-indigo-600 py-2 text-white transition hover:bg-indigo-700 hover:cursor-pointer disabled:bg-indigo-400 disabled:cursor-not-allowed active:scale-99"
           >
-            {isLoading
-              ? auth("loading")
-              : isRegister
-                ? auth("registerButton")
-                : auth("loginButton")}
+            {isLoading ? auth("loading") : isRegister ? sign("up") : sign("in")}
           </button>
         </form>
         <div className="mt-4 text-center text-sm text-gray-600">

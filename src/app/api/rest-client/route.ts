@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseServerClient } from "../../../lib/supabaseServerClient.ts";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route.ts";
+import { Session } from "next-auth";
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return new Response("Unauthorized", { status: 401 });
+  const session: Session | null = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { url, method, headers, body } = await req.json();

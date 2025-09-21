@@ -13,7 +13,7 @@ export default async function RestClient() {
 
   return (
     <AppContainer>
-      <div className="w-full">
+      <div className="w-full flex-1">
         <LazyRestClientForm />
       </div>
     </AppContainer>

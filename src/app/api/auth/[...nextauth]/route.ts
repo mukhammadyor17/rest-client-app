@@ -1,9 +1,12 @@
-import NextAuth, { User as NextAuthUser, Session } from "next-auth";
+import NextAuth, {
+  NextAuthOptions,
+  User as NextAuthUser,
+  Session,
+} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { NextAuthOptions } from "next-auth/src";
 import { supabaseServerClient } from "../../../../lib/supabaseServerClient.ts";
-import { MyToken } from "next-auth/jwt";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -47,11 +50,11 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60,
+    maxAge: 300,
   },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
+    async jwt({ token, user }: { token: JWT; user: Session["user"] }) {
+      if (user && user.email) {
         token.id = user.id;
         token.email = user.email;
         token.role = (user as NextAuthUser & { role: string }).role;
@@ -59,9 +62,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async session({ session, token }) {
-      const t = token as unknown as MyToken;
-      const s = session as unknown as Session;
+    async session({ session, token }: { session: Session; token: JWT }) {
+      const t = token;
+      const s = session;
 
       s.user = {
         id: t.id,

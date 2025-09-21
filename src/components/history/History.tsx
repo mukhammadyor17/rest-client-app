@@ -8,10 +8,12 @@ import ErrorModal from "@/components/ui/ErrorModal.tsx";
 import Loader from "@/components/ui/Loader.tsx";
 import { HistoryRow } from "types/history";
 import { createRequestUrl } from "../../utils/rest-client-utils.ts";
+import { useSession } from "next-auth/react";
 
 type HistoryResponse = { data: HistoryRow[] };
 
 const History = () => {
+  const session = useSession();
   const [requests, setRequests] = useState<HistoryResponse | null | undefined>(
     undefined
   );
@@ -19,19 +21,27 @@ const History = () => {
   const history = useTranslations("Main");
   const modal = useTranslations("Modal");
   const table = useTranslations("Table");
+  const err = useTranslations("History");
   const router = useRouter();
 
   async function fetchHistory() {
     try {
       const response = await fetch("/api/history");
+      if (response.status === 401) {
+        setError(new Error(err("unAuth")));
+        setRequests(null);
+        router.push("/");
+        return null;
+      }
+
       if (response.ok) {
         return await response.json();
       } else {
         setError(new Error("Ошибка HTTP:" + response.statusText));
         return null;
       }
-    } catch (err: any) {
-      setError(new Error("Ошибка загрузки истории: " + err.message));
+    } catch (err) {
+      setError(new Error("Ошибка загрузки истории: " + (err as Error).message));
       return null;
     }
   }
@@ -40,6 +50,10 @@ const History = () => {
     fetchHistory().then((res) => {
       if (res) {
         setRequests(res);
+      } else {
+        if (session.status === "unauthenticated") {
+          router.push("/");
+        }
       }
     });
   }, []);
@@ -57,7 +71,7 @@ const History = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex-1 max-w-5xl mx-auto">
       {requests === undefined ? (
         <Loader />
       ) : requests?.data.length === 0 ? (
@@ -67,7 +81,7 @@ const History = () => {
           <h1 className="text-2xl font-bold text-center mb-4">
             {history("history")}
           </h1>
-          <div className="flex w-full">
+          <div className="flex w-full overflow-x-auto">
             <table className="min-w-full overflow-x-auto border border-gray-200 rounded-lg text-sm sm:text-base">
               <thead className="bg-gray-100 dark:bg-gray-800">
                 <tr>
