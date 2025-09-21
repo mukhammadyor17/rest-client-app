@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { type Variable } from "types/variables";
-import useLocalStorage from "hooks/useLocalStorage";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const VariablesContainer = () => {
   const variables = useTranslations("Variables");

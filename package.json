@@ -12,6 +12,7 @@
     "format:fix": "prettier --write .",
     "precommit": "lint-staged",
     "test": "vitest",
+    "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
@@ -42,6 +43,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
     "autoprefixer": "^10.4.21",
     "eslint-config-next": "15.5.2",
     "eslint-config-prettier": "^10.1.8",

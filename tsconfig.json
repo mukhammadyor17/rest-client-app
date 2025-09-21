@@ -3,6 +3,7 @@
     "baseUrl": "src/",
     "paths": {
       "@/app/*": ["app/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/components/*": ["components/*"]
     },
     "target": "ES2022",
