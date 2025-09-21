@@ -106,9 +106,9 @@ const History = () => {
                       new Date(b.created_at).getTime() -
                       new Date(a.created_at).getTime()
                   )
-                  .map((item) => (
+                  .map((item, ind) => (
                     <tr
-                      key={item.created_at}
+                      key={`${item.created_at}-${ind}`}
                       onClick={() => handleRowClick(item)}
                       className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                     >

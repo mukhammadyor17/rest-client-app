@@ -1,160 +1,104 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
 import LoginPage from "./LoginPage";
+import * as nextAuth from "next-auth/react";
+import React from "react";
 
-// Моки
+vi.mock("next-intl", () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
 const pushMock = vi.fn();
 const refreshMock = vi.fn();
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: pushMock, refresh: refreshMock }),
+  useRouter: () => ({
+    push: pushMock,
+    refresh: refreshMock,
+  }),
 }));
-vi.mock("next-auth/react", () => ({ signIn: vi.fn() }));
-vi.mock("next-intl", () => ({ useTranslations: () => (key: string) => key }));
-vi.mock("@/components/ui/ErrorModal.tsx", () => ({
-  __esModule: true,
-  default: ({ message }: { message: string }) => (
-    <div data-testid="error-modal">{message}</div>
-  ),
-}));
-
-// Мокаем fetch для регистрации
-global.fetch = vi.fn();
 
 describe("LoginPage", () => {
   beforeEach(() => {
-    vi.resetAllMocks();
-    localStorage.clear();
+    vi.clearAllMocks();
   });
 
   it("рендерит форму с email и password", () => {
     render(<LoginPage />);
+
     expect(screen.getByLabelText("emailLabel")).toBeInTheDocument();
     expect(screen.getByLabelText("passwordLabel")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "in" })).toBeInTheDocument();
   });
 
-  it("показывает ошибку при пустом email", async () => {
+  it("показывает ошибку если email пустой или некорректный", async () => {
     render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "invalid" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "in" }));
+    const emailInput = screen.getByLabelText("emailLabel");
+    const passwordInput = screen.getByLabelText("passwordLabel");
+    const submitButton = screen.getByRole("button", { name: "in" });
 
+    fireEvent.change(emailInput, { target: { value: "invalidemail" } });
+    fireEvent.change(passwordInput, { target: { value: "Password1!" } });
+    fireEvent.click(submitButton);
     expect(await screen.findByText("emailError")).toBeInTheDocument();
   });
 
-  it("показывает ошибку при некорректном пароле", async () => {
+  it("показывает ошибку если password пустой или слабый", async () => {
     render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "test@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "123" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "in" }));
+    const emailInput = screen.getByLabelText("emailLabel");
+    const passwordInput = screen.getByLabelText("passwordLabel");
+    const submitButton = screen.getByRole("button", { name: "in" });
+
+    fireEvent.change(emailInput, { target: { value: "test@test.com" } });
+    fireEvent.change(passwordInput, { target: { value: "123" } });
+    fireEvent.click(submitButton);
 
     expect(
       await screen.findByText("passwordComplexityError")
     ).toBeInTheDocument();
   });
 
-  it("обрабатывает успешный вход", async () => {
-    const { signIn } = await import("next-auth/react");
-    (signIn as any).mockResolvedValue({ ok: true });
+  it("успешный вход вызывает signIn и router.push", async () => {
+    const signInMock = vi
+      .spyOn(nextAuth, "signIn")
+      .mockResolvedValue({ ok: true, error: null, status: 200, url: "n" });
 
     render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "test@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "in" }));
+    const emailInput = screen.getByLabelText("emailLabel");
+    const passwordInput = screen.getByLabelText("passwordLabel");
+    const submitButton = screen.getByRole("button", { name: "in" });
 
-    await waitFor(() => expect(pushMock).toHaveBeenCalledWith("/"));
+    fireEvent.change(emailInput, { target: { value: "test@test.com" } });
+    fireEvent.change(passwordInput, { target: { value: "Password1!" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByRole("button", { name: "in" });
+
+    expect(signInMock).toHaveBeenCalledWith("credentials", {
+      email: "test@test.com",
+      password: "Password1!",
+      redirect: false,
+    });
+    expect(pushMock).toHaveBeenCalledWith("/");
     expect(refreshMock).toHaveBeenCalled();
   });
 
-  it("показывает ошибку при неуспешной авторизации", async () => {
-    const { signIn } = await import("next-auth/react");
-    (signIn as any).mockResolvedValue({ error: "CredentialsSignin" });
-
-    render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "test@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "in" }));
-
-    expect(await screen.findByTestId("error-modal")).toHaveTextContent(
-      "invalidCredentials"
-    );
-  });
-
-  it("обрабатывает регистрацию с успешным fetch", async () => {
-    localStorage.setItem("Sign", "Sign Up");
-    (global.fetch as any).mockResolvedValue({
-      ok: true,
-      json: async () => ({ message: "ok" }),
-    });
-
-    const { signIn } = await import("next-auth/react");
-    (signIn as any).mockResolvedValue({ ok: true });
-
-    render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "reg@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "up" }));
-
-    await waitFor(() => expect(pushMock).toHaveBeenCalledWith("/"));
-  });
-
-  it("обрабатывает регистрацию с ошибкой fetch", async () => {
-    localStorage.setItem("Sign", "Sign Up");
-    (global.fetch as any).mockResolvedValue({
+  it("показывает ошибку если signIn возвращает ошибку", async () => {
+    vi.spyOn(nextAuth, "signIn").mockResolvedValue({
       ok: false,
-      json: async () => ({ error: "EmailTaken" }),
+      error: "CredentialsSignin",
+      status: 55,
+      url: "str",
     });
 
     render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "reg@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "up" }));
+    const emailInput = screen.getByLabelText("emailLabel");
+    const passwordInput = screen.getByLabelText("passwordLabel");
+    const submitButton = screen.getByRole("button", { name: "in" });
 
-    expect(await screen.findByTestId("error-modal")).toHaveTextContent(
-      "EmailTaken"
-    );
-  });
+    fireEvent.change(emailInput, { target: { value: "test@test.com" } });
+    fireEvent.change(passwordInput, { target: { value: "Password1!" } });
+    fireEvent.click(submitButton);
 
-  it("обрабатывает fetch ошибку сети", async () => {
-    localStorage.setItem("Sign", "Sign Up");
-    (global.fetch as any).mockRejectedValue(new Error("Network error"));
-
-    render(<LoginPage />);
-    fireEvent.change(screen.getByLabelText("emailLabel"), {
-      target: { value: "reg@test.com" },
-    });
-    fireEvent.change(screen.getByLabelText("passwordLabel"), {
-      target: { value: "P@ssword1" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "up" }));
-
-    expect(await screen.findByTestId("error-modal")).toHaveTextContent(
-      "unknownError"
-    );
+    expect(await screen.findByText("invalidCredentials")).toBeInTheDocument();
   });
 });

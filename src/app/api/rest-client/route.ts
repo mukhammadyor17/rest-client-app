@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServerClient } from "../../../lib/supabaseServerClient.ts";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route.ts";
 import { Session } from "next-auth";
+import { authOptions } from "../../../lib/authOptions.ts";
 
 export async function POST(req: NextRequest) {
   const session: Session | null = await getServerSession(authOptions);

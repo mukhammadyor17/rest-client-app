@@ -1,31 +1,30 @@
 import { NextResponse } from "next/server";
-import { supabaseServerClient } from "../../../lib/supabaseServerClient.ts";
+import { supabaseServerClient } from "../../../lib/supabaseServerClient";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route.ts";
 import { Session } from "next-auth";
+import { authOptions } from "../../../lib/authOptions";
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   const session: Session | null = await getServerSession(authOptions);
+
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  {
-    try {
-      const userId = session.user.id;
-      const { data, error } = await supabaseServerClient
-        .from("request_history")
-        .select("*")
-        .eq("user_id", userId);
 
-      if (!error) {
-        return NextResponse.json({ data: data }, { status: 200 });
-      } else {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-      }
-    } catch (e) {
-      if (e instanceof Error) {
-        return NextResponse.json({ error: e.message }, { status: 500 });
-      }
+  try {
+    const userId = session.user.id;
+    const { data, error } = await supabaseServerClient
+      .from("request_history")
+      .select("*")
+      .eq("user_id", userId);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    return NextResponse.json({ data }, { status: 200 });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "Unknown error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

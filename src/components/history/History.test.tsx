@@ -37,7 +37,7 @@ describe("History", () => {
   });
 
   it("показывает Loader перед загрузкой", async () => {
-    global.fetch = vi.fn().mockReturnValue(new Promise(() => {})) as any;
+    global.fetch = vi.fn().mockReturnValue(new Promise(() => {}));
 
     render(<History />);
     expect(screen.getByTestId("loader")).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("History", () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ data: [] }),
-    }) as any;
+    });
 
     render(<History />);
     expect(await screen.findByTestId("empty-history")).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("History", () => {
           },
         ],
       }),
-    }) as any;
+    });
 
     render(<History />);
     expect(await screen.findByText("GET")).toBeInTheDocument();
@@ -79,7 +79,7 @@ describe("History", () => {
   });
 
   it("показывает ErrorModal если fetch падает", async () => {
-    global.fetch = vi.fn().mockRejectedValue(new Error("fail")) as any;
+    global.fetch = vi.fn().mockRejectedValue(new Error("fail"));
 
     render(<History />);
     expect(await screen.findByTestId("error-modal")).toHaveTextContent(
@@ -91,7 +91,7 @@ describe("History", () => {
     global.fetch = vi.fn().mockResolvedValue({
       status: 401,
       ok: false,
-    }) as any;
+    });
 
     render(<History />);
     await waitFor(() => expect(pushMock).toHaveBeenCalledWith("/"));

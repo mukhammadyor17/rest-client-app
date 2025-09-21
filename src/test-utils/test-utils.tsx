@@ -32,3 +32,10 @@ export function wrapWithSession(
 ) {
   return <SessionProvider session={session}>{ui}</SessionProvider>;
 }
+
+export const Geist = ({ children }: { children: React.ReactNode }) => (
+  <>{children}</>
+);
+export const GeistProvider = ({ children }: { children: React.ReactNode }) => (
+  <>{children}</>
+);
