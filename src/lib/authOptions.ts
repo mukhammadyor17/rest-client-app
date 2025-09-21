@@ -1,7 +1,8 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User as NextAuthUser, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { supabaseServerClient } from "./supabaseServerClient";
+import { JWT } from "next-auth/jwt";
+import { supabaseServerClient } from "./supabaseServerClient.ts";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<NextAuthUser | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
         const { data: user, error } = await supabaseServerClient
@@ -20,19 +21,23 @@ export const authOptions: NextAuthOptions = {
           .eq("email", credentials.email)
           .single();
 
-        if (error || !user) return null;
+        if (error || !user) {
+          return null;
+        }
 
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password_hash
         );
-        if (!isValid) return null;
+        if (!isValid) {
+          return null;
+        }
 
         return {
           id: user.id,
           email: user.email,
           role: "user",
-        };
+        } as NextAuthUser & { role: string };
       },
     }),
   ],
@@ -44,21 +49,25 @@ export const authOptions: NextAuthOptions = {
     maxAge: 300,
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user: Session["user"] }) {
       if (user && user.email) {
-        token.id = (user as any).id;
+        token.id = user.id;
         token.email = user.email;
-        token.role = (user as any).role;
+        token.role = (user as NextAuthUser & { role: string }).role;
       }
       return token;
     },
-    async session({ session, token }) {
-      (session.user as any) = {
-        id: (token as any).id,
-        email: token.email,
-        role: (token as any).role,
+
+    async session({ session, token }: { session: Session; token: JWT }) {
+      const t = token;
+      const s = session;
+
+      s.user = {
+        id: t.id,
+        email: t.email,
+        role: t.role,
       };
-      return session;
+      return s as Session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

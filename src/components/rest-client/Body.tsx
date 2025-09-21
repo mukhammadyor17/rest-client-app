@@ -36,6 +36,7 @@ const Body = ({
     <div className="relative flex-col w-full max-w-full">
       <h2>{type === "request" ? rest("body") : rest("response")}</h2>
       <textarea
+        data-testid="body-component"
         readOnly={type === "response"}
         placeholder={placeholder}
         value={value}

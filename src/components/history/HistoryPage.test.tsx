@@ -4,12 +4,12 @@ import { vi } from "vitest";
 
 const mockGetServerSession = vi.fn();
 vi.mock("next-auth/next", () => ({
-  getServerSession: (...args: any[]) => mockGetServerSession(...args),
+  getServerSession: (...args: []) => mockGetServerSession(...args),
 }));
 
 const redirectMock = vi.fn();
 vi.mock("next/navigation", () => ({
-  redirect: (...args: any[]) => redirectMock(...args),
+  redirect: (...args: []) => redirectMock(...args),
 }));
 
 vi.mock("@/components/app-container/appContainer.tsx", () => ({

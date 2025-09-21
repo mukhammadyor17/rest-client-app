@@ -50,7 +50,7 @@ describe("History functional tests", () => {
           },
         ],
       }),
-    }) as any;
+    });
 
     render(<History />);
     const row = await screen.findByText("GET");
@@ -93,7 +93,7 @@ describe("History functional tests", () => {
           },
         ],
       }),
-    }) as any;
+    });
 
     render(<History />);
     const rows = await screen.findAllByRole("row");
@@ -131,7 +131,7 @@ describe("History functional tests", () => {
           },
         ],
       }),
-    }) as any;
+    });
 
     render(<History />);
     const greenCell = await screen.findByText("200");

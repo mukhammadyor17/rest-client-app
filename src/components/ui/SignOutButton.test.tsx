@@ -4,6 +4,12 @@ import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { vi, Mock } from "vitest";
 
+const pushMock = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: pushMock, refresh: vi.fn() }),
+}));
+
 vi.mock("next-intl", () => ({
   useTranslations: vi.fn(),
 }));

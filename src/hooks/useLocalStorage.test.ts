@@ -1,4 +1,3 @@
-// useLocalStorage.test.tsx
 import { renderHook, act } from "@testing-library/react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { type Variable } from "types/variables";

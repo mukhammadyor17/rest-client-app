@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route.ts";
 import { AppContainerProps } from "../../types/app-container.ts";
 import Header from "@/components/ui/Header.tsx";
 import Footer from "@/components/ui/Footer.tsx";
 import ClientErrorBoundary from "../ui/ErrorBoundary.tsx";
 import { Session } from "next-auth";
+import { authOptions } from "../../lib/authOptions.ts";
 
 const AppContainer = async ({ children }: AppContainerProps) => {
   const session: Session | null = await getServerSession(authOptions);
