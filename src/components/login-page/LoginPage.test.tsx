@@ -18,7 +18,6 @@ vi.mock("@/components/ui/ErrorModal.tsx", () => ({
   ),
 }));
 
-// Мокаем fetch для регистрации
 global.fetch = vi.fn();
 
 describe("LoginPage", () => {
