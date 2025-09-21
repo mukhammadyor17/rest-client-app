@@ -1,0 +1,107 @@
+{
+  "Main": {
+    "welcome": "Welcome",
+    "welcomeBack": "Welcome back",
+    "rest": "REST Client",
+    "variables": "Variables",
+    "history": "History",
+    "mainButton": "Main"
+  },
+  "SignInButton": {
+    "in": "Sign In",
+    "up": "Sign Up"
+  },
+  "SignOutButton": {
+    "out": "Sign Out"
+  },
+  "RestClient": {
+    "title": "REST Client",
+    "urlPlaceholder": "Enter URL",
+    "omitted": "URL parsing omitted",
+    "invalidJson": "Invalid JSON",
+    "bodyError": "Body error",
+    "responseError": "Response error",
+    "send": "Send",
+    "loading": "Loading...",
+    "bodyPlaceholder": "JSON/Text Editor",
+    "responsePlaceholder": "Read-Only Viewer",
+    "prettify": "Prettify",
+    "headersPlaceholder": "Add headers in JSON",
+    "invalidHeaders": "Invalid JSON in headers",
+    "emptyUrl": "URL cannot be empty",
+    "clear": "Clear",
+    "body": "Body",
+    "response": "Response",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "addHeader": "Add Header",
+    "headers": "Headers"
+  },
+  "Modal": {
+    "title": "Error",
+    "close": "Close"
+  },
+  "Code": {
+    "copy": "Copy"
+  },
+  "History": {
+    "history": "History",
+    "unAuth": "Session expired, please log in again"
+  },
+
+  "Auth": {
+    "login": "Login",
+    "register": "Registration",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "emailError": "Please enter a valid email",
+    "passwordEmptyError": "Please enter password",
+    "passwordComplexityError": "Password must contain at least 8 characters, at least one letter, one number and one special character",
+    "loading": "Loading...",
+    "registerButton": "Register",
+    "loginButton": "Login",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "switchToLogin": "Login",
+    "switchToRegister": "Register",
+    "showPassword": "show",
+    "hidePassword": "hide",
+    "invalidCredentials": "Invalid email or password",
+    "unknownError": "An error occurred. Please try again.",
+    "registrationFailed": "Registration failed"
+  },
+  "Variables": {
+    "title": "Variables",
+    "name": "Name",
+    "value": "Value",
+    "namePlaceholder": "Variable name",
+    "valuePlaceholder": "Variable value",
+    "empty": "Variables are empty",
+    "duplicateError": "Already exists"
+  },
+  "Table": {
+    "method": "Method",
+    "url": "URL",
+    "status": "Status",
+    "created": "Created",
+    "latency": "Latency",
+    "request_size": "Request Size",
+    "response_size": "Response Size",
+    "error": "Error",
+    "bytes": "bytes",
+    "ms": "ms",
+    "none": "-"
+  },
+
+  "EmptyHistory": {
+    "title": "It's empty here.",
+    "description": "You haven't executed any requests yet",
+    "tryOptions": "Try those options:",
+    "restClientLink": "REST Client"
+  },
+  "NotFound": {
+    "title": "404. Page not found.",
+    "returnLabel": "Return to home page",
+    "mainPageLink": "Main page"
+  }
+}
