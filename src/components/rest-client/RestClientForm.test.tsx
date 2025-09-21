@@ -109,4 +109,14 @@ describe("RestClientForm", () => {
       expect(screen.getByText(/Network error/)).toBeInTheDocument();
     });
   });
+  it("parses url and headers from window.location", () => {
+    vi.stubGlobal("location", {
+      href: "http://localhost?url=https://api.com&method=POST&body=test&headers[x-test]=123",
+    });
+    render(<RestClientForm />);
+    expect(screen.getByDisplayValue("https://api.com")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("POST")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("test")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("123")).toBeInTheDocument();
+  });
 });
